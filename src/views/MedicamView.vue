@@ -2,6 +2,9 @@
 <template>
   <div class="container">
     <section>
+      <h1>Medicamentos</h1>
+    </section>
+    <section>
       <table class="table table-bordered">
         <thead>
           <tr>
