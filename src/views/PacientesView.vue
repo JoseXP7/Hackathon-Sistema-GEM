@@ -11,11 +11,13 @@ async function getPacientes() {
 
 onMounted(() => {
   getPacientes()
-  console.log(pacientes.value)
 })
 </script>
 <template>
   <div class="container">
+    <section>
+      <h1>Pacientes</h1>
+    </section>
     <section>
       <table class="table table-sm table-bordered">
         <thead>
