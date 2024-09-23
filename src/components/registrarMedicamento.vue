@@ -1,37 +1,32 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useSupabase } from '../clients/supabase'
 import Swal from 'sweetalert2'
 
 const name = ref()
-const surname = ref()
-const document = ref()
-const medicine = ref()
-const amount = ref()
 const lab = ref()
-const club = ref()
+const tipo = ref()
+const amount = ref()
 const caducate_date = ref()
 
-const regDonativo = async () => {
+const regMedicamento = async () => {
   try {
     const send = {
-      nombres: name.value,
-      apellidos: surname.value,
-      ci_rif: document.value,
-      medicamento: medicine.value,
+      nombre: name.value,
       laboratorio: lab.value,
-      cantidad: amount.value,
+      tipo: tipo.value,
+      stock: amount.value,
       fecha_caducidad: caducate_date.value,
-      tipo: club.value,
-      fecha: new Date(),
     }
-    const { error } = await useSupabase().supabase.from('donantes').upsert(send)
+    const { error } = await useSupabase()
+      .supabase.from('medicamentos')
+      .upsert(send)
     if (error) throw error
   } catch (error) {
     alert(error.message)
   } finally {
     Swal.fire({
-      title: 'Donativo Registrado',
+      title: 'Medicamento Registrado',
       text: 'Actualizando',
       icon: 'success',
     })
@@ -46,7 +41,7 @@ const regDonativo = async () => {
       data-bs-toggle="modal"
       data-bs-target="#regDonateModal"
     >
-      <i class="bi bi-person-heart"></i> Registrar Donativo
+      <i class="bi bi-prescription2"></i> Registrar Medicamento
     </button>
   </div>
   <div
@@ -60,7 +55,7 @@ const regDonativo = async () => {
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="regDonateModalLabel">
-            Registro de Donativo
+            Registro de Medicamento
           </h5>
           <button
             type="button"
@@ -77,7 +72,9 @@ const regDonativo = async () => {
                 <div class="row mb-4">
                   <div class="col">
                     <div>
-                      <label class="form-label" for="names">Nombres</label>
+                      <label class="form-label" for="names"
+                        >Nombre del Medicamento</label
+                      >
                       <input
                         type="text"
                         id="names"
@@ -88,62 +85,7 @@ const regDonativo = async () => {
                   </div>
                   <div class="col">
                     <div>
-                      <label class="form-label" for="surnames">Apellidos</label>
-                      <input
-                        type="text"
-                        id="surnames"
-                        class="form-control"
-                        v-model="surname"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <!-- CI input -->
-                <div class="row mb-4">
-                  <div class="col-5">
-                    <div>
-                      <label class="form-label" for="ci"
-                        >Cedula de Identidad / R.I.F</label
-                      >
-                      <input
-                        type="text"
-                        id="ci"
-                        class="form-control"
-                        v-model="document"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-4">
-                    <div>
-                      <label class="form-label" for="medicine"
-                        >Medicamento</label
-                      >
-                      <input
-                        type="text"
-                        id="medicine"
-                        class="form-control"
-                        v-model="medicine"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-2">
-                    <div>
-                      <label class="form-label" for="age">Cantidad</label>
-                      <input
-                        type="number"
-                        id="age"
-                        class="form-control"
-                        v-model="amount"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row mb-4">
-                  <div class="col-3">
-                    <div>
-                      <label for="lab">Laboratorio</label>
+                      <label class="form-label" for="lab">Laboratorio</label>
                       <input
                         type="text"
                         id="lab"
@@ -152,25 +94,41 @@ const regDonativo = async () => {
                       />
                     </div>
                   </div>
+                </div>
+
+                <div class="row mb-4">
                   <div class="col-4">
                     <div>
-                      <label for="caducate_date">Fecha de Caducidad</label>
+                      <label for="tipo" class="form-label">Tipo</label>
+                      <select class="form-select" id="tipo" v-model="tipo">
+                        <option value="Hipertenso">Hipertenso</option>
+                        <option value="Cancer">Cancer</option>
+                        <option value="Diabetico">Diabetico</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div>
+                      <label class="form-label" for="amount">Cantidad</label>
+                      <input
+                        type="number"
+                        id="amount"
+                        class="form-control"
+                        v-model="amount"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div>
+                      <label for="caducate_date" class="form-label"
+                        >Fecha de Caducidad</label
+                      >
                       <input
                         type="date"
                         id="caducate_date"
                         class="form-control"
                         v-model="caducate_date"
                       />
-                    </div>
-                  </div>
-                  <div class="col-4">
-                    <div>
-                      <label for="club">Club</label>
-                      <select class="form-select" id="club" v-model="club">
-                        <option value="Hipertenso">Hipertenso</option>
-                        <option value="Cancer">Cancer</option>
-                        <option value="Diabetico">Diabetico</option>
-                      </select>
                     </div>
                   </div>
                 </div>
@@ -186,7 +144,7 @@ const regDonativo = async () => {
           >
             Cancelar
           </button>
-          <button type="button" class="btn btn-primary" @click="regDonativo">
+          <button type="button" class="btn btn-primary" @click="regMedicamento">
             Registrar
           </button>
         </div>

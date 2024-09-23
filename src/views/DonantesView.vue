@@ -33,7 +33,9 @@ onMounted(() => {
             <th>Nombres</th>
             <th>Apellidos</th>
             <th>Medicamento Donado</th>
+            <th>Laboratorio</th>
             <th>Cantidad</th>
+            <th>Fecha Caducidad</th>
             <th>Tipo de Medicamento</th>
             <th>C.I / R.I.F</th>
             <th>Fecha</th>
@@ -45,7 +47,9 @@ onMounted(() => {
             <td>{{ donante.nombres }}</td>
             <td>{{ donante.apellidos }}</td>
             <td>{{ donante.medicamento }}</td>
+            <td>{{ donante.laboratorio }}</td>
             <td>{{ donante.cantidad }}</td>
+            <td>{{ donante.fecha_caducidad }}</td>
             <td>{{ donante.tipo }}</td>
             <td>{{ donante.ci_rif }}</td>
             <td>{{ donante.fecha }}</td>
