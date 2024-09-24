@@ -3,9 +3,16 @@ import { ref, onMounted } from 'vue'
 import { useSupabase } from '../clients/supabase'
 import Swal from 'sweetalert2'
 
+//nota: aqui voy a crear una tabla donde me de los medicamentos, con un input de busqueda, el paciente
+//al buscar en la tabla, y le de click a una opcin, rellenara el formulario con el id del medicamento y
+//el nombre del medicamento
+
 const { supabase } = useSupabase()
 
 const medicamentos = ref([])
+
+const medicine = ref()
+const amount = ref()
 
 const getMedicamentos = async () => {
   const { data } = await supabase.from('medicamentos').select()
@@ -51,31 +58,74 @@ onMounted(() => {
               <form @submit.prevent="createRequest" autocomplete="off">
                 <!-- 2 column grid layout with text inputs for the first and last names -->
                 <div class="row mb-4">
-                  <div class="col-6">
+                  <div class="col-4">
                     <div>
-                      <label class="form-label" for="names"
+                      <label class="form-label" for="medicine"
                         >Nombre del Medicamento</label
                       >
                       <input
                         type="text"
-                        id="names"
+                        id="medicine"
                         class="form-control"
-                        v-model="name"
+                        v-model="medicine"
+                        disabled
                       />
                     </div>
+                    <div class="row mb-4">
+                      <div class="col-6">
+                        <div>
+                          <label class="form-label" for="amount"
+                            >Cantidad</label
+                          >
+                          <input
+                            type="number"
+                            id="amount"
+                            class="form-control"
+                            v-model="amount"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-
-                <div class="row mb-4">
-                  <div class="col-3">
-                    <div>
-                      <label class="form-label" for="amount">Cantidad</label>
+                  <div class="col">
+                    <div class="input-group mb-1">
                       <input
-                        type="number"
-                        id="amount"
+                        type="text"
                         class="form-control"
-                        v-model="amount"
+                        placeholder="Buscar"
                       />
+                      <button class="btn btn-primary">
+                        <i class="bi bi-search"></i>
+                      </button>
+                    </div>
+                    <div class="table table-responsive">
+                      <table class="table table-sm table-bordered">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Medicamento</th>
+                            <th>Cantidad</th>
+                            <th>Acción</th>
+                          </tr>
+                        </thead>
+                        <tbody
+                          v-for="medicamento in medicamentos"
+                          :key="medicamento.id"
+                        >
+                          <tr>
+                            <th>{{ medicamento.id }}</th>
+                            <td>{{ medicamento.nombre }}</td>
+                            <td>{{ medicamento.stock }}</td>
+                            <td>
+                              <div>
+                                <button class="btn btn-primary">
+                                  <i class="bi bi-plus"></i>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
