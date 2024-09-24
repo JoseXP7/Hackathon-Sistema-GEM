@@ -168,7 +168,7 @@ const regDonativo = async () => {
                       <label for="club">Club</label>
                       <select class="form-select" id="club" v-model="club">
                         <option value="Hipertenso">Hipertenso</option>
-                        <option value="Cancer">Cancer</option>
+                        <option value="Oncológico">Oncológico</option>
                         <option value="Diabetico">Diabetico</option>
                       </select>
                     </div>

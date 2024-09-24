@@ -32,9 +32,7 @@ import { RouterLink, RouterView } from 'vue-router'
               <p class="card-icon">
                 <i class="bi bi-clipboard2-heart"></i>
               </p>
-              <RouterLink to="/ingresoOperador" class="btn btn-primary"
-                >Entrar</RouterLink
-              >
+              <RouterLink to="/" class="btn btn-primary">Entrar</RouterLink>
             </div>
           </div>
         </div>

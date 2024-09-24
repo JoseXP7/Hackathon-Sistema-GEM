@@ -39,7 +39,7 @@ const regMedicamento = async () => {
     <button
       class="btn btn-primary"
       data-bs-toggle="modal"
-      data-bs-target="#regDonateModal"
+      data-bs-target="#regMedicineModal"
     >
       <i class="bi bi-prescription2"></i> Registrar Medicamento
     </button>
@@ -47,14 +47,14 @@ const regMedicamento = async () => {
   <div
     class="modal fade"
     tabindex="-1"
-    id="regDonateModal"
-    aria-labelledby="regDonateModalLabel"
+    id="regMedicineModal"
+    aria-labelledby="regMedicineModalLabel"
     aria-hidden="true"
   >
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="regDonateModalLabel">
+          <h5 class="modal-title" id="regMedicineModalLabel">
             Registro de Medicamento
           </h5>
           <button
@@ -67,7 +67,7 @@ const regMedicamento = async () => {
         <div class="modal-body">
           <section class="row justify-content-center">
             <div class="col-lg-12">
-              <form @submit.prevent="regDonativo">
+              <form @submit.prevent="regMedicamento">
                 <!-- 2 column grid layout with text inputs for the first and last names -->
                 <div class="row mb-4">
                   <div class="col">
@@ -102,7 +102,7 @@ const regMedicamento = async () => {
                       <label for="tipo" class="form-label">Tipo</label>
                       <select class="form-select" id="tipo" v-model="tipo">
                         <option value="Hipertenso">Hipertenso</option>
-                        <option value="Cancer">Cancer</option>
+                        <option value="Oncológico">Oncológico</option>
                         <option value="Diabetico">Diabetico</option>
                       </select>
                     </div>
