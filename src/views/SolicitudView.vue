@@ -28,9 +28,22 @@ const getPaciente = async () => {
   pacientes.value = data
 }
 
+const getSolicitudes = async () => {
+  let uq_cedula
+  users.forEach((e) => {
+    uq_cedula = e.cedula
+  })
+  const { data } = await supabase
+    .from('solicitudes')
+    .select()
+    .eq('cedula', uq_cedula)
+  solicitudes.value = data
+}
+
 onMounted(() => {
   getLocalStorage()
   getPaciente()
+  getSolicitudes()
 })
 </script>
 
@@ -43,7 +56,7 @@ onMounted(() => {
       <h1 class="me-auto">Solicitudes</h1>
       <crearSolicitud />
       <div class="ms-1">
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" @click="getSolicitudes">
           <i class="bi bi-arrow-clockwise"></i>
         </button>
       </div>
@@ -60,9 +73,21 @@ onMounted(() => {
             <th>Fecha de Retiro</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-for="solicitud in solicitudes" :key="solicitud.id">
           <tr v-if="solicitudes.length === 0">
             <td colspan="6" class="text-center">No hay solicitudes</td>
+          </tr>
+          <tr v-else>
+            <th>{{ solicitud.id }}</th>
+            <td>{{ solicitud.cedula }}</td>
+            <td>{{ solicitud.medicamento }}</td>
+            <td>{{ solicitud.cantidad }}</td>
+            <td>
+              <span class="badge text-bg-secondary">{{
+                solicitud.estado
+              }}</span>
+            </td>
+            <td>{{ solicitud.fecha_retiro }}</td>
           </tr>
         </tbody>
       </table>

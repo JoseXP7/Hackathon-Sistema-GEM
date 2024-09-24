@@ -10,17 +10,64 @@ import Swal from 'sweetalert2'
 const { supabase } = useSupabase()
 
 const medicamentos = ref([])
-
+/*Unico medicamento a obtener */
 const medicine = ref()
 const amount = ref()
+const uq_id = ref()
+
+/*-------------------------- */
+
+let users = ref([])
+const uq_cedula = ref()
+
+const getLocalStorage = () => {
+  users = JSON.parse(localStorage.getItem('usuario'))
+}
+
+const getPaciente = async () => {
+  users.forEach((e) => {
+    uq_cedula.value = e.cedula
+  })
+}
 
 const getMedicamentos = async () => {
   const { data } = await supabase.from('medicamentos').select()
   medicamentos.value = data
 }
 
+const obtenerMedicamento = async (id) => {
+  const { data } = await supabase.from('medicamentos').select().eq('id', id)
+  data.forEach((e) => {
+    uq_id.value = e.id
+    medicine.value = e.nombre
+  })
+}
+
+const crearSolicitud = async () => {
+  try {
+    const send = {
+      cedula: uq_cedula.value,
+      medicamento: medicine.value,
+      id_medicamento: uq_id.value,
+      cantidad: amount.value,
+    }
+    const { error } = await supabase.from('solicitudes').upsert(send)
+    if (error) throw error
+  } catch (error) {
+    alert(error.message)
+  } finally {
+    Swal.fire({
+      title: 'Solicitud creada',
+      text: 'Actualiza',
+      icon: 'success',
+    })
+  }
+}
+
 onMounted(() => {
   getMedicamentos()
+  getLocalStorage()
+  getPaciente()
 })
 </script>
 
@@ -56,7 +103,6 @@ onMounted(() => {
           <section class="row justify-content-center">
             <div class="col-lg-12">
               <form @submit.prevent="createRequest" autocomplete="off">
-                <!-- 2 column grid layout with text inputs for the first and last names -->
                 <div class="row mb-4">
                   <div class="col-4">
                     <div>
@@ -118,7 +164,10 @@ onMounted(() => {
                             <td>{{ medicamento.stock }}</td>
                             <td>
                               <div>
-                                <button class="btn btn-primary">
+                                <button
+                                  class="btn btn-primary"
+                                  @click="obtenerMedicamento(medicamento.id)"
+                                >
                                   <i class="bi bi-plus"></i>
                                 </button>
                               </div>
@@ -141,8 +190,8 @@ onMounted(() => {
           >
             Cancelar
           </button>
-          <button type="button" class="btn btn-primary" @click="regMedicamento">
-            Registrar
+          <button type="button" class="btn btn-primary" @click="crearSolicitud">
+            Solicitar
           </button>
         </div>
       </div>

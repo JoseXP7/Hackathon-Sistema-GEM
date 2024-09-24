@@ -45,6 +45,19 @@ import { RouterLink, RouterView } from 'vue-router'
             </div>
           </div>
         </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title">Solicitudes de Pacientes</h5>
+              <p class="card-icon">
+                <i class="bi bi-ui-checks"></i>
+              </p>
+              <RouterLink to="/gestion" class="btn btn-primary"
+                >Entrar</RouterLink
+              >
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
