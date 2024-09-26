@@ -170,6 +170,7 @@ const regDonativo = async () => {
                         <option value="Hipertenso">Hipertenso</option>
                         <option value="Oncológico">Oncológico</option>
                         <option value="Diabetico">Diabetico</option>
+                        <option value="Cuidado General">Cuidado General</option>
                       </select>
                     </div>
                   </div>
