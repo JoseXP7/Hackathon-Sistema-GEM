@@ -18,15 +18,36 @@ async function getMedicamentos() {
 }
 
 async function moveToCaducated(id) {
+  //primero creamos el medicamento vencido
+  let name
+  let lab
+  let tipo
+  let cad
+  let stock
+
   //primero buscamos el medicamento
   const { data } = await supabase.from('medicamentos').select().eq('id', id)
   medicamento_vencido.value = data
 
+  data.forEach((e) => {
+    name = e.nombre
+    lab = e.laboratorio
+    tipo = e.tipo
+    cad = e.fecha_caducidad
+    stock = e.stock
+  })
+
+  const send = {
+    nombre: name,
+    laboratorio: lab,
+    tipo: tipo,
+    caducidad: cad,
+    stock: stock,
+  }
+
   //luego lo movemos a vencidos
   try {
-    const { error } = await supabase
-      .from('vencidos')
-      .upsert(medicamento_vencido.value)
+    const { error } = await supabase.from('vencidos').upsert(send)
     if (error) throw error
   } catch (error) {
     alert(error.message)
@@ -40,6 +61,11 @@ async function moveToCaducated(id) {
       icon: 'success',
     })
   }
+}
+
+const verifyDate = () => {
+  const hoy = new Date().toISOString().split('T')[0]
+  return hoy
 }
 
 onMounted(() => {
@@ -76,7 +102,13 @@ onMounted(() => {
             <td>{{ medicamento.nombre }}</td>
             <td>{{ medicamento.laboratorio }}</td>
             <td>{{ medicamento.tipo }}</td>
-            <td>{{ medicamento.fecha_caducidad }}</td>
+            <td>
+              {{
+                medicamento.fecha_caducidad > verifyDate()
+                  ? medicamento.fecha_caducidad
+                  : `${medicamento.fecha_caducidad} (Vencido) 🔴`
+              }}
+            </td>
             <td>{{ medicamento.stock }}</td>
             <td>
               <div class="d-flex justify-content-center gap-2">
@@ -84,7 +116,7 @@ onMounted(() => {
                   class="btn btn-info"
                   @click="moveToCaducated(medicamento.id)"
                 >
-                  <i class="bi bi-hand-thumbs-down-fill"></i>
+                  <i class="bi bi-hand-thumbs-down-fill"></i> Mover a Vencidos
                 </button>
               </div>
             </td>

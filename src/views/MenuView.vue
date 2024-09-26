@@ -7,7 +7,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <div class="container">
       <div class="row g-3">
         <div class="col-lg-4 col-md-6">
-          <div class="card">
+          <div class="card shadow border border-0">
             <div class="card-body text-center">
               <h5 class="card-title">Pacientes</h5>
               <p class="card-icon">
@@ -20,7 +20,7 @@ import { RouterLink, RouterView } from 'vue-router'
           </div>
         </div>
         <div class="col-lg-4 col-md-6">
-          <div class="card">
+          <div class="card shadow border border-0">
             <div class="card-body text-center">
               <h5 class="card-title">Medicamentos</h5>
               <p class="card-icon">
@@ -33,7 +33,7 @@ import { RouterLink, RouterView } from 'vue-router'
           </div>
         </div>
         <div class="col-lg-4 col-md-6">
-          <div class="card">
+          <div class="card shadow border border-0">
             <div class="card-body text-center">
               <h5 class="card-title">Donantes</h5>
               <p class="card-icon">
@@ -46,13 +46,26 @@ import { RouterLink, RouterView } from 'vue-router'
           </div>
         </div>
         <div class="col-lg-4 col-md-6">
-          <div class="card">
+          <div class="card shadow border border-0">
             <div class="card-body text-center">
               <h5 class="card-title">Solicitudes de Pacientes</h5>
               <p class="card-icon">
                 <i class="bi bi-ui-checks"></i>
               </p>
               <RouterLink to="/gestion" class="btn btn-primary"
+                >Entrar</RouterLink
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="card shadow border border-0">
+            <div class="card-body text-center">
+              <h5 class="card-title">Medicamentos Vencidos</h5>
+              <p class="card-icon">
+                <i class="bi bi-capsule-pill"></i>
+              </p>
+              <RouterLink to="/vencidos" class="btn btn-primary"
                 >Entrar</RouterLink
               >
             </div>

@@ -4,7 +4,7 @@ import { useSupabase } from '../clients/supabase'
 import Swal from 'sweetalert2'
 
 //nota: aqui voy a crear una tabla donde me de los medicamentos, con un input de busqueda, el paciente
-//al buscar en la tabla, y le de click a una opcin, rellenara el formulario con el id del medicamento y
+//al buscar en la tabla, y le de click a una opcion, rellenara el formulario con el id del medicamento y
 //el nombre del medicamento
 
 const { supabase } = useSupabase()
@@ -19,6 +19,8 @@ const uq_id = ref()
 
 let users = ref([])
 const uq_cedula = ref()
+
+const searchName = ref('')
 
 const getLocalStorage = () => {
   users = JSON.parse(localStorage.getItem('usuario'))
@@ -61,6 +63,21 @@ const crearSolicitud = async () => {
       text: 'Actualiza',
       icon: 'success',
     })
+  }
+}
+
+const searchMedicine = async () => {
+  if (typeof searchName.value === 'string' && searchName.value.length === 0) {
+    getMedicamentos()
+  } else {
+    const wordOne = searchName.value.trim().split(' ').at(0)
+    const wordTwo = searchName.value.trim().split(' ').at(1)
+    const { data } = await supabase
+      .from('medicamentos')
+      .select()
+      .or(`nombre.ilike.%${wordOne}%, laboratorio.ilike.%${wordTwo}%`)
+
+    medicamentos.value = data
   }
 }
 
@@ -139,17 +156,22 @@ onMounted(() => {
                         type="text"
                         class="form-control"
                         placeholder="Buscar"
+                        v-model="searchName"
                       />
-                      <button class="btn btn-primary">
+                      <button class="btn btn-primary" @click="searchMedicine">
                         <i class="bi bi-search"></i>
                       </button>
                     </div>
-                    <div class="table table-responsive">
+                    <div
+                      class="table table-responsive overflow-auto"
+                      style="height: 250px"
+                    >
                       <table class="table table-sm table-bordered">
                         <thead>
                           <tr>
-                            <th>#</th>
+                            <th>ID</th>
                             <th>Medicamento</th>
+                            <th>Laboratorio</th>
                             <th>Cantidad</th>
                             <th>Acción</th>
                           </tr>
@@ -161,6 +183,7 @@ onMounted(() => {
                           <tr>
                             <th>{{ medicamento.id }}</th>
                             <td>{{ medicamento.nombre }}</td>
+                            <td>{{ medicamento.laboratorio }}</td>
                             <td>{{ medicamento.stock }}</td>
                             <td>
                               <div>
