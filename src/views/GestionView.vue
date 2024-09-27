@@ -143,104 +143,108 @@ onMounted(() => {
         </tbody>
       </table>
     </section>
-  </div>
-  <!--Modal de la info de la solicitud-->
-  <div
-    class="modal fade"
-    tabindex="-1"
-    id="seeInfoRequest"
-    aria-labelledby="seeInfoRequestLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="seeInfoRequestLabel">
-            Solicitud de Paciente
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <section class="row justify-content-start">
-            <div class="col-lg-12">
-              <form @submit.prevent="updateRequest">
-                <!-- 2 column grid layout with text inputs for the first and last names -->
-                <div class="row mb-4">
-                  <div class="col-6">
-                    <ul v-for="paciente in pacientes" :key="paciente.cedula">
-                      <li>Nombres: {{ paciente.nombres }}</li>
-                      <li>Apellidos: {{ paciente.apellidos }}</li>
-                      <li>Edad: {{ paciente.edad }}</li>
-                      <li>Telefono: {{ paciente.telefono }}</li>
-                      <li>Direccion: {{ paciente.direccion }}</li>
-                      <li>Club: {{ paciente.club }}</li>
-                    </ul>
+    <!--Modal de la info de la solicitud-->
+    <div
+      class="modal fade"
+      tabindex="-1"
+      id="seeInfoRequest"
+      aria-labelledby="seeInfoRequestLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="seeInfoRequestLabel">
+              Solicitud de Paciente
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <section class="row justify-content-start">
+              <div class="col-lg-12">
+                <form @submit.prevent="updateRequest">
+                  <!-- 2 column grid layout with text inputs for the first and last names -->
+                  <div class="row mb-4">
+                    <div class="col-6">
+                      <ul v-for="paciente in pacientes" :key="paciente.cedula">
+                        <li>Nombres: {{ paciente.nombres }}</li>
+                        <li>Apellidos: {{ paciente.apellidos }}</li>
+                        <li>Edad: {{ paciente.edad }}</li>
+                        <li>Telefono: {{ paciente.telefono }}</li>
+                        <li>Direccion: {{ paciente.direccion }}</li>
+                        <li>Club: {{ paciente.club }}</li>
+                      </ul>
+                    </div>
+                    <div class="col">
+                      <h5>Solicitud:</h5>
+                      <ul v-for="data in data_solicitud" :key="data.id">
+                        <li>Medicamento: {{ data.medicamento }}</li>
+                        <li>ID Medicamento: {{ data.id_medicamento }}</li>
+                        <li>Cantidad Solicitada: {{ data.cantidad }}</li>
+                        <li>
+                          <label for="estado" class="form-label">Estado</label>
+                          <select
+                            id="estado"
+                            class="form-select"
+                            v-model="state"
+                          >
+                            <option value="Aprobado">Aprobar</option>
+                            <option value="Rechazado">Rechazar</option>
+                            <option value="Entregado">Entregar</option>
+                          </select>
+                        </li>
+                        <li>
+                          <label for="date_pick" class="form-label"
+                            >Fecha para retirar</label
+                          >
+                          <input
+                            type="datetime-local"
+                            id="date_pick"
+                            class="form-control"
+                            v-model="date_pick"
+                          />
+                        </li>
+                        <li>
+                          <button
+                            type="button"
+                            class="btn btn-success mt-2"
+                            @click="updateRequest(data.id)"
+                          >
+                            Aceptar
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            type="button"
+                            class="btn btn-secondary mt-2"
+                            @click="
+                              calcSubtract(data.id_medicamento, data.cantidad)
+                            "
+                          >
+                            Restar del Stock
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                  <div class="col">
-                    <h5>Solicitud:</h5>
-                    <ul v-for="data in data_solicitud" :key="data.id">
-                      <li>Medicamento: {{ data.medicamento }}</li>
-                      <li>ID Medicamento: {{ data.id_medicamento }}</li>
-                      <li>Cantidad Solicitada: {{ data.cantidad }}</li>
-                      <li>
-                        <label for="estado" class="form-label">Estado</label>
-                        <select id="estado" class="form-select" v-model="state">
-                          <option value="Aprobado">Aprobar</option>
-                          <option value="Rechazado">Rechazar</option>
-                          <option value="Entregado">Entregar</option>
-                        </select>
-                      </li>
-                      <li>
-                        <label for="date_pick" class="form-label"
-                          >Fecha para retirar</label
-                        >
-                        <input
-                          type="datetime-local"
-                          id="date_pick"
-                          class="form-control"
-                          v-model="date_pick"
-                        />
-                      </li>
-                      <li>
-                        <button
-                          type="button"
-                          class="btn btn-success mt-2"
-                          @click="updateRequest(data.id)"
-                        >
-                          Aceptar
-                        </button>
-                      </li>
-                      <li>
-                        <button
-                          type="button"
-                          class="btn btn-secondary mt-2"
-                          @click="
-                            calcSubtract(data.id_medicamento, data.cantidad)
-                          "
-                        >
-                          Restar del Stock
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </section>
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Cancelar
-          </button>
+                </form>
+              </div>
+            </section>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+          </div>
         </div>
       </div>
     </div>
