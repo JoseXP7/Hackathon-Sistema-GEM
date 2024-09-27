@@ -60,6 +60,7 @@ async function moveToCaducated(id) {
     Swal.fire({
       title: 'Medicamento Eliminado',
       icon: 'success',
+      html: '<p>Presione <i class="bi bi-arrow-clockwise"></i> para recargar</p>',
     })
   }
 }

@@ -14,6 +14,23 @@ const caducate_date = ref()
 const donation_type = ref()
 
 const regDonativo = async () => {
+  if (
+    !name.value ||
+    !surname.value ||
+    !document.value ||
+    !medicine.value ||
+    !amount.value ||
+    !lab.value ||
+    !club.value ||
+    !caducate_date.value ||
+    !donation_type.value
+  ) {
+    return Swal.fire({
+      title: 'Error',
+      text: 'Todos los campos son obligatorios',
+      icon: 'error',
+    })
+  }
   try {
     const send = {
       nombres: name.value,

@@ -38,6 +38,13 @@ const solicitud_unica = async (ci) => {
 }
 
 const updateRequest = async (id) => {
+  if (!state.value || !date_pick.value) {
+    return Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'Seleccione un estado y fecha de retiro',
+    })
+  }
   const send = {
     estado: state.value,
     fecha_retiro: date_pick.value,

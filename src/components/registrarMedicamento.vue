@@ -10,6 +10,19 @@ const amount = ref()
 const caducate_date = ref()
 
 const regMedicamento = async () => {
+  if (
+    !name.value ||
+    !lab.value ||
+    !tipo.value ||
+    !amount.value ||
+    !caducate_date.value
+  ) {
+    return Swal.fire({
+      icon: 'error',
+      title: 'Campos vacios',
+      text: 'Por favor, rellene todos los campos',
+    })
+  }
   try {
     const send = {
       nombre: name.value,
@@ -27,7 +40,7 @@ const regMedicamento = async () => {
   } finally {
     Swal.fire({
       title: 'Medicamento Registrado',
-      text: 'Actualizando',
+      html: '<p>Presione <i class="bi bi-arrow-clockwise"></i> para recargar</p>',
       icon: 'success',
     })
   }
