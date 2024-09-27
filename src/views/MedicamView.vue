@@ -88,7 +88,7 @@ onMounted(() => {
         </button>
       </div>
     </section>
-    <section>
+    <section class="table-responsive mt-2">
       <table class="table table-bordered">
         <thead>
           <tr>

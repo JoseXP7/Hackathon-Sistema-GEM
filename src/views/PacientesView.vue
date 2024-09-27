@@ -60,7 +60,7 @@ onMounted(() => {
         </div>
       </div>
     </section>
-    <section>
+    <section class="table-responsive">
       <table class="table table-sm table-bordered">
         <thead>
           <tr>

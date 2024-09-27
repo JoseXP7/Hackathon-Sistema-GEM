@@ -48,7 +48,7 @@ onMounted(() => {
     <section class="d-flex align-items-center">
       <h1 class="me-auto">Medicamentos Vencidos</h1>
     </section>
-    <section>
+    <section class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr>
