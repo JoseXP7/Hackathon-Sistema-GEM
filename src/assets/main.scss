@@ -1,0 +1,21 @@
+$primary: #133a71;
+$secondary: #7ca9e9;
+$danger: #fe5955;
+$info: #16c2d5;
+$success: #37dd95;
+
+$theme-colors: (
+  'primary': $primary,
+  'secondary': $secondary,
+  'danger': $danger,
+  'info': $info,
+  'success': $success,
+);
+
+.btn {
+  text-transform: uppercase;
+  font-weight: bolder !important;
+  font-size: 14px !important;
+}
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';

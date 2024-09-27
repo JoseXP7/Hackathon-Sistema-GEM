@@ -13,7 +13,7 @@ import { RouterLink, RouterView } from 'vue-router'
           <div class="card">
             <div class="card-body text-center">
               <h5 class="card-title">Soy Paciente</h5>
-              <p class="card-icon">
+              <p class="card-icon patient">
                 <i class="bi bi-person-wheelchair"></i>
               </p>
               <RouterLink to="/regPaciente" class="btn btn-primary me-2"
@@ -44,5 +44,9 @@ import { RouterLink, RouterView } from 'vue-router'
 <style scoped>
 .card-icon {
   font-size: 50px;
+}
+
+.card-icon.patient {
+  color: #056bd8;
 }
 </style>

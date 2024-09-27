@@ -26,9 +26,9 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <style scoped>
-.view-app {
+/* .view-app {
   padding-top: 3.5em;
-}
+} */
 
 .route-enter-from {
   opacity: 0;

@@ -82,7 +82,7 @@ onMounted(() => {
       <h1 class="me-auto">Medicamentos</h1>
       <registrarMedicamento />
       <div class="ms-1">
-        <button class="btn btn-primary" @click="getMedicamentos">
+        <button class="btn btn-secondary" @click="getMedicamentos">
           <i class="bi bi-arrow-clockwise"></i>
         </button>
       </div>

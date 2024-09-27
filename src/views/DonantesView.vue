@@ -24,7 +24,7 @@ onMounted(() => {
       <h1 class="me-auto">Donantes</h1>
       <registrarDonacion />
       <div class="ms-1">
-        <button class="btn btn-primary" @click="getDonantes">
+        <button class="btn btn-secondary" @click="getDonantes">
           <i class="bi bi-arrow-clockwise"></i>
         </button>
       </div>
