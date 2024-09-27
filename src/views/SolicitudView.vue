@@ -52,14 +52,16 @@ onMounted(() => {
     </section>
     <section class="d-flex align-items-center">
       <h1 class="me-auto">Solicitudes</h1>
-      <div class="me-1">
-        <rellenarHistorial />
-      </div>
-      <crearSolicitud />
-      <div class="ms-1">
-        <button class="btn btn-primary" @click="getSolicitudes">
-          <i class="bi bi-arrow-clockwise"></i>
-        </button>
+      <div class="d-flex align-items-center flex-column">
+        <div class="mb-1">
+          <rellenarHistorial />
+        </div>
+        <crearSolicitud />
+        <div class="mt-1 mb-1">
+          <button class="btn btn-primary" @click="getSolicitudes">
+            <i class="bi bi-arrow-clockwise"></i>
+          </button>
+        </div>
       </div>
     </section>
     <section class="table-responsive">
