@@ -104,6 +104,8 @@ const regMedicamento = async () => {
                         <option value="Hipertenso">Hipertenso</option>
                         <option value="Oncológico">Oncológico</option>
                         <option value="Diabetico">Diabetico</option>
+                        <option value="Psiquiatrico">Psiquiatrico</option>
+                        <option value="Asmatico">Asmatico</option>
                         <option value="Cuidado General">Cuidado General</option>
                       </select>
                     </div>

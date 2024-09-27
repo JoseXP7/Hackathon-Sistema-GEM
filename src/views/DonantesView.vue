@@ -43,6 +43,7 @@ onMounted(() => {
             <th>Tipo de Medicamento</th>
             <th>C.I / R.I.F</th>
             <th>Fecha</th>
+            <th>Tipo de Donación</th>
           </tr>
         </thead>
         <tbody v-for="donante in donantes" :key="donante.id">
@@ -57,6 +58,7 @@ onMounted(() => {
             <td>{{ donante.tipo }}</td>
             <td>{{ donante.ci_rif }}</td>
             <td>{{ donante.fecha }}</td>
+            <td>{{ donante.tipo_donacion }}</td>
           </tr>
         </tbody>
       </table>

@@ -11,6 +11,7 @@ const amount = ref()
 const lab = ref()
 const club = ref()
 const caducate_date = ref()
+const donation_type = ref()
 
 const regDonativo = async () => {
   try {
@@ -24,6 +25,7 @@ const regDonativo = async () => {
       fecha_caducidad: caducate_date.value,
       tipo: club.value,
       fecha: new Date(),
+      tipo_donacion: donation_type.value,
     }
     const { error } = await useSupabase().supabase.from('donantes').upsert(send)
     if (error) throw error
@@ -170,7 +172,27 @@ const regDonativo = async () => {
                         <option value="Hipertenso">Hipertenso</option>
                         <option value="Oncológico">Oncológico</option>
                         <option value="Diabetico">Diabetico</option>
+                        <option value="Psiquiatrico">Psiquiatrico</option>
+                        <option value="Asmatico">Asmatico</option>
                         <option value="Cuidado General">Cuidado General</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-4">
+                    <div>
+                      <label for="donation_type">Tipo de Donación</label>
+                      <select
+                        id="donation_type"
+                        class="form-select"
+                        v-model="donation_type"
+                      >
+                        <option value="ONG">ONG</option>
+                        <option value="Empresa Privada">Empresa Privada</option>
+                        <option value="Gubernamental">Gubernamentales</option>
+                        <option value="Personal">Personales</option>
                       </select>
                     </div>
                   </div>

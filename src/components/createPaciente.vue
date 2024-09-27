@@ -121,6 +121,8 @@ const createPaciente = async () => {
               <select class="form-select" id="club" v-model="club">
                 <option value="Hipertenso">Hipertenso</option>
                 <option value="Oncológico">Oncológico</option>
+                <option value="Psiquiatrico">Psiquiatrico</option>
+                <option value="Asmatico">Asmatico</option>
                 <option value="Diabetico">Diabetico</option>
               </select>
             </div>
