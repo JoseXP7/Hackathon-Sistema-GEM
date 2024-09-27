@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue'
+import { RouterLink } from 'vue-router'
 import { useSupabase } from '../clients/supabase'
 import registrarDonacion from '@/components/registrarDonacion.vue'
 const { supabase } = useSupabase()
@@ -16,6 +17,9 @@ onMounted(() => {
 </script>
 <template>
   <div class="container">
+    <RouterLink to="/menu" class="btn btn-primary me-3"
+      ><i class="bi bi-arrow-left-circle"></i> Regresar</RouterLink
+    >
     <section class="d-flex align-items-center">
       <h1 class="me-auto">Donantes</h1>
       <registrarDonacion />
