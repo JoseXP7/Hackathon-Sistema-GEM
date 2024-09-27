@@ -120,7 +120,7 @@ const regDonativo = async () => {
 
                 <!-- CI input -->
                 <div class="row mb-4">
-                  <div class="col-5">
+                  <div class="col-sm-4 col-lg-5">
                     <div>
                       <label class="form-label" for="ci"
                         >Cedula de Identidad / R.I.F</label
@@ -133,7 +133,7 @@ const regDonativo = async () => {
                       />
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-8 col-lg-4">
                     <div>
                       <label class="form-label" for="medicine"
                         >Medicamento</label
@@ -146,7 +146,7 @@ const regDonativo = async () => {
                       />
                     </div>
                   </div>
-                  <div class="col-2">
+                  <div class="col-3 col-lg-2">
                     <div>
                       <label class="form-label" for="age">Cantidad</label>
                       <input
@@ -160,7 +160,7 @@ const regDonativo = async () => {
                 </div>
 
                 <div class="row mb-4">
-                  <div class="col-3">
+                  <div class="col-6 col-lg-3">
                     <div>
                       <label for="lab">Laboratorio</label>
                       <input
@@ -171,7 +171,7 @@ const regDonativo = async () => {
                       />
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-6 col-lg-4">
                     <div>
                       <label for="caducate_date">Fecha de Caducidad</label>
                       <input
@@ -182,7 +182,7 @@ const regDonativo = async () => {
                       />
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-6 col-lg-4">
                     <div>
                       <label for="club">Club</label>
                       <select class="form-select" id="club" v-model="club">
@@ -198,7 +198,7 @@ const regDonativo = async () => {
                 </div>
 
                 <div class="row mb-4">
-                  <div class="col-4">
+                  <div class="col-6 col-lg-4">
                     <div>
                       <label for="donation_type">Tipo de Donación</label>
                       <select

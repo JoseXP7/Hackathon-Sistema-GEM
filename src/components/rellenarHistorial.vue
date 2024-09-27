@@ -110,7 +110,7 @@ onMounted(() => {
             <div class="col-lg-12">
               <form @submit.prevent="updateHistory" autocomplete="off">
                 <div class="row mb-4">
-                  <div class="col-4">
+                  <div class="col-sm-6 col-lg-4">
                     <div>
                       <label class="form-label" for="medic"
                         >Nombre de mi médico</label
@@ -123,7 +123,7 @@ onMounted(() => {
                       />
                     </div>
                   </div>
-                  <div class="col-4">
+                  <div class="col-sm-6 col-lg-4">
                     <div>
                       <label class="form-label" for="telephone"
                         >Teléfono del médico</label

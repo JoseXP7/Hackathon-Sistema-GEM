@@ -128,7 +128,7 @@ onMounted(() => {
             <div class="col-lg-12">
               <form @submit.prevent="createRequest" autocomplete="off">
                 <div class="row mb-4">
-                  <div class="col-4">
+                  <div class="col-sm-6 col-lg-4">
                     <div>
                       <label class="form-label" for="medicine"
                         >Nombre del Medicamento</label
