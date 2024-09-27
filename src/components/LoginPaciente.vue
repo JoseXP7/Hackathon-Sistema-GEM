@@ -17,6 +17,13 @@ const dir = ref()
 const club = ref()
 
 const login = async () => {
+  if (!ci.value) {
+    return Swal.fire({
+      icon: 'error',
+      title: 'Cedula requerida',
+      text: 'Por favor, ingrese una cedula',
+    })
+  }
   //primero revisamos si existe en la base de datos
   const { data } = await supabase
     .from('pacientes')

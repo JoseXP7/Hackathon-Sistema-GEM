@@ -1,7 +1,10 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useSupabase } from '../clients/supabase'
 import Swal from 'sweetalert2'
+
+const router = useRouter()
 
 const name = ref()
 const surname = ref()
@@ -12,6 +15,21 @@ const dir = ref()
 const club = ref()
 
 const createPaciente = async () => {
+  if (
+    !ci.value ||
+    !name.value ||
+    !surname.value ||
+    !age.value ||
+    !tel.value ||
+    !dir.value ||
+    !club.value
+  ) {
+    return Swal.fire({
+      title: 'Error',
+      text: 'Por favor, rellene todos los campos',
+      icon: 'error',
+    })
+  }
   try {
     const send = {
       cedula: ci.value,
@@ -34,6 +52,7 @@ const createPaciente = async () => {
       text: 'Redirigiendo',
       icon: 'success',
     })
+    router.push('/loginPaciente')
   }
 }
 </script>
@@ -52,6 +71,7 @@ const createPaciente = async () => {
                 id="names"
                 class="form-control"
                 v-model="name"
+                required
               />
             </div>
           </div>
@@ -63,6 +83,7 @@ const createPaciente = async () => {
                 id="surnames"
                 class="form-control"
                 v-model="surname"
+                required
               />
             </div>
           </div>
@@ -84,6 +105,7 @@ const createPaciente = async () => {
                 id="age"
                 class="form-control"
                 v-model="age"
+                required
               />
             </div>
           </div>
@@ -98,6 +120,7 @@ const createPaciente = async () => {
                 id="phone"
                 class="form-control"
                 v-model="tel"
+                required
               />
             </div>
           </div>
@@ -109,6 +132,7 @@ const createPaciente = async () => {
                 id="direction"
                 class="form-control"
                 v-model="dir"
+                required
               />
             </div>
           </div>
@@ -118,7 +142,7 @@ const createPaciente = async () => {
           <div class="col-4">
             <div>
               <label for="club">Club</label>
-              <select class="form-select" id="club" v-model="club">
+              <select class="form-select" id="club" v-model="club" required>
                 <option value="Hipertenso">Hipertenso</option>
                 <option value="Oncológico">Oncológico</option>
                 <option value="Psiquiatrico">Psiquiatrico</option>
