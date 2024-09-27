@@ -25,6 +25,15 @@ const searchPaciente = async () => {
   }
 }
 
+const historiales = ref([])
+
+const historyPaciente = async (ci) => {
+  const { data } = await supabase.from('historiales').select().eq('cedula', ci)
+  historiales.value = data
+
+  console.log(historiales.value)
+}
+
 onMounted(() => {
   getPacientes()
 })
@@ -72,11 +81,14 @@ onMounted(() => {
             <td>{{ paciente.club }}</td>
             <td>
               <div class="d-flex justify-content-center gap-2">
-                <button class="btn btn-info">
-                  <i class="bi bi-eye"></i>
-                </button>
-                <button class="btn btn-warning">
-                  <i class="bi bi-pencil-square"></i>
+                <button
+                  class="btn btn-info"
+                  data-bs-toggle="modal"
+                  data-bs-target="#historyModal"
+                  @click="historyPaciente(paciente.cedula)"
+                >
+                  <i class="bi bi-clipboard2-pulse"></i>
+                  Historial
                 </button>
                 <button class="btn btn-danger">
                   <i class="bi bi-trash"></i>
@@ -87,6 +99,51 @@ onMounted(() => {
         </tbody>
       </table>
     </section>
+  </div>
+  <div
+    class="modal fade"
+    tabindex="-1"
+    id="historyModal"
+    aria-labelledby="historyModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="historyModalLabel">
+            Historial del Paciente
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <section class="row justify-content-center">
+            <h3>Historial</h3>
+            <div class="col">
+              <ul v-for="historial in historiales" :key="historial.cedula">
+                <li>Cedula del Paciente: {{ historial.cedula }}</li>
+                <li>Nombre del Médico: {{ historial.nombre_medico }}</li>
+                <li>Teléfono del Médico: {{ historial.tel_medico }}</li>
+                <li>Descripción: {{ historial.descripcion }}</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Ok
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <style scoped></style>

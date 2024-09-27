@@ -1,8 +1,6 @@
 <script setup>
-//antes de que se me olvide, la tabla tiene que buscar el id del paciente que esta solicitando
-//el medicamento, esto para que busque exactamente en la tabla solicitudes el id del paciente, se tiene que usar una sentencia de busqueda .eq.
-//esto hará que solo muestre las solicitudes de ese paciente
 import crearSolicitud from '@/components/crearSolicitud.vue'
+import rellenarHistorial from '@/components/rellenarHistorial.vue'
 import { onMounted, ref } from 'vue'
 import { useSupabase } from '../clients/supabase'
 const { supabase } = useSupabase()
@@ -54,6 +52,9 @@ onMounted(() => {
     </section>
     <section class="d-flex align-items-center">
       <h1 class="me-auto">Solicitudes</h1>
+      <div class="me-1">
+        <rellenarHistorial />
+      </div>
       <crearSolicitud />
       <div class="ms-1">
         <button class="btn btn-primary" @click="getSolicitudes">
