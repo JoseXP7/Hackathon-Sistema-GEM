@@ -1,32 +1,52 @@
 # prototipo-gestion-entrega-de-medicamentos
 
-This template should help get you started developing with Vue 3 in Vite.
+Prototipo creado para la Gestión de Entrega de Medicamentos a pacientes con enfermedades crónicas de la Comunidad Santos Luzardo.
 
-## Recommended IDE Setup
+## Extras
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- [Bot de Telegram Asistente (GEMA)](https://github.com/JoseXP7/bot-GEMA-prototipo-hackathon-cccb)
 
-## Customize configuration
+## Tecnologías y Librerías usadas
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+- VueJS & Vite
+- Vue Router
+- Bootstrap 5
+- SweetAlert2
+- Supabase
 
-## Project Setup
+## Variables de Entorno
+
+Para ejecutar este proyecto, es necesario las variables de entorno que contienen los accesos de la base de datos de Supabase. Para esto se debe crear un archivo .env con las siguientes variables:
+
+`VITE_SUPA_URL`
+
+`VITE_SUPA_KEY`
+
+Los valores de las variables deben consultarse con el equipo de desarrollo.
+
+## Diagrama de la base de datos
+
+![Diagrama](https://i.imgur.com/mLZm8ZU.png)
+
+## Instalacion del Proyecto
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Compilar y recarga instantanea para desarrollo
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+### Compilar y minificar para produccion
 
 ```sh
 npm run build
 ```
+
+En caso de algun error, eliminar la carpeta **/node_modules** y ejecutar el primer comando (**npm install**).
 
 ### Password supabase of db
 
