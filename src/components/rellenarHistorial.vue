@@ -23,6 +23,13 @@ const getLocalStorage = () => {
 }
 
 const updateHistory = async () => {
+  if (!medic.value || !telephone.value || !description.value) {
+    return Swal.fire({
+      title: 'Historial Incompleto',
+      icon: 'error',
+      text: 'Rellena todos los campos',
+    })
+  }
   try {
     const send = {
       nombre_medico: medic.value,

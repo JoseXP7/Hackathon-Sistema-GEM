@@ -46,6 +46,13 @@ const obtenerMedicamento = async (id) => {
 }
 
 const crearSolicitud = async () => {
+  if (!medicine.value || !amount.value) {
+    return Swal.fire({
+      title: 'Error',
+      text: 'Seleccione un medicamento y la cantidad',
+      icon: 'error',
+    })
+  }
   try {
     const send = {
       cedula: uq_cedula.value,
@@ -60,7 +67,7 @@ const crearSolicitud = async () => {
   } finally {
     Swal.fire({
       title: 'Solicitud creada',
-      text: 'Actualiza',
+      html: 'Presiona <i class="bi bi-arrow-clockwise"></i> para recargar',
       icon: 'success',
     })
   }
