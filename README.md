@@ -5,6 +5,7 @@ Prototipo creado para la Gestión de Entrega de Medicamentos a pacientes con enf
 ## Extras
 
 - [Bot de Telegram Asistente (GEMA)](https://github.com/JoseXP7/bot-GEMA-prototipo-hackathon-cccb)
+- [Ver proyecto desplegado en Netlify](https://sistema-gem-hackathon-cccb.netlify.app)
 
 ## Tecnologías y Librerías usadas
 
