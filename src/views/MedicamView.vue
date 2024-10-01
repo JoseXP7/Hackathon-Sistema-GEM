@@ -13,9 +13,34 @@ const medicamento_vencido = ref([])
 
 /* ------------------- */
 
+let total = ref(0)
+const searchType = ref('')
+
 async function getMedicamentos() {
+  total.value = 0
   const { data } = await supabase.from('medicamentos').select()
   medicamentos.value = data
+  data.forEach((e) => {
+    total.value += e.stock
+  })
+}
+
+async function totalMedicine() {
+  total.value = 0
+  if (typeof searchType.value === 'string' && searchType.value.length === 0) {
+    getMedicamentos()
+  } else {
+    const word = searchType.value
+    const { data } = await supabase
+      .from('medicamentos')
+      .select()
+      .eq('tipo', word)
+    data.forEach((e) => {
+      total.value += e.stock
+    })
+
+    medicamentos.value = data
+  }
 }
 
 async function moveToCaducated(id) {
@@ -88,11 +113,34 @@ onMounted(() => {
         </button>
       </div>
     </section>
+    <div class="row">
+      <div class="col-lg-3 col-8">
+        Cantidad de Medicamentos para:
+        <div class="d-flex align-items-center gap-2">
+          <select v-model="searchType" class="form-select">
+            <option value="Hipertenso" selected>Hipertensos</option>
+            <option value="Oncológico">Oncológicos</option>
+            <option value="Psiquiatrico">Psiquiatricos</option>
+            <option value="Asmatico">Asmaticos</option>
+            <option value="Diabetico">Diabeticos</option>
+            <option value="Cuidado General">Cuidados Generales</option>
+          </select>
+          <button class="btn btn-primary" @click="totalMedicine">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h3>Total: {{ total }}</h3>
+      </div>
+    </div>
     <section class="table-responsive mt-2">
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>#</th>
+            <th>ID</th>
             <th>Nombre</th>
             <th>Laboratorio</th>
             <th>Tipo</th>
@@ -114,7 +162,7 @@ onMounted(() => {
                   : `${medicamento.fecha_caducidad} (Vencido) 🔴`
               }}
             </td>
-            <td>{{ medicamento.stock }}</td>
+            <td class="stock">{{ medicamento.stock }}</td>
             <td>
               <div class="d-flex justify-content-center gap-2">
                 <button
