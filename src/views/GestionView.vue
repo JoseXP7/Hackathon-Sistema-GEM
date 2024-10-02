@@ -12,9 +12,19 @@ const data_solicitud = ref([])
 const state = ref()
 const date_pick = ref()
 
+const loading = ref(true)
+
 const getSolicitudes = async () => {
   const { data } = await supabase.from('solicitudes').select()
   solicitudes.value = data
+}
+
+const enableRequest = () => {
+  if (state.value == 'Aprobado' || state.value == 'Rechazado') {
+    loading.value = true
+  } else {
+    loading.value = false
+  }
 }
 
 const getUqPaciente = async (cedula) => {
@@ -28,6 +38,7 @@ const getUqPaciente = async (cedula) => {
 }
 
 const solicitud_unica = async (ci) => {
+  loading.value = true
   const { data } = await supabase
     .from('solicitudes')
     .select()
@@ -35,6 +46,9 @@ const solicitud_unica = async (ci) => {
     .order('id', { ascending: false })
     .limit(1)
   data_solicitud.value = data
+  data.forEach((e) => {
+    state.value = e.estado
+  })
 }
 
 const updateRequest = async (id) => {
@@ -199,6 +213,7 @@ onMounted(() => {
                             id="estado"
                             class="form-select"
                             v-model="state"
+                            @change="enableRequest"
                           >
                             <option value="Aprobado">Aprobar</option>
                             <option value="Rechazado">Rechazar</option>
@@ -229,6 +244,7 @@ onMounted(() => {
                           <button
                             type="button"
                             class="btn btn-secondary mt-2"
+                            :disabled="loading"
                             @click="
                               calcSubtract(data.id_medicamento, data.cantidad)
                             "
